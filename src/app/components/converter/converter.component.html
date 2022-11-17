@@ -1,27 +1,39 @@
-<div>
-    <form [formGroup]="converterForm" (ngSubmit)="done()">
-        <div>
-            <label for="amount">Amount</label>
-            <input formControlName="amount" type="text" />
+<div class="g-converter">
+    <form class="g-converter--form" [formGroup]="converterForm" (ngSubmit)="done()">
+        <div class="g-converter--amount">
+            <div class="g-input">
+                <label class="g-input--label" for="amount">Amount</label>
+                <input class="g-input--input" formControlName="amount" type="text" />
+            </div>
 
-            <span>1 {{ displayFromCurrencyLabel() }} = XX.XX {{ displayToCurrencyLabel() }}</span>
+            <span class="g-converter--detail">1 {{ displayFromCurrencyLabel() }} = XX.XX {{ displayToCurrencyLabel() }}</span>
         </div>
 
-        <div>
-            <label for="from">From</label>
-            <select id="from" formControlName="from">
-                <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
-            </select> 
+        <div class="g-converter--convert">
+            <div class="g-converter--convert__header">
+                <div class="g-select">
+                    <label class="g-select--label" for="from">From</label>
+                    <select class="g-select--select" id="from" formControlName="from">
+                        <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                    </select> 
+                </div>
 
-            <label for="to">To</label>
-            <select id="to" formControlName="to">
-                <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
-            </select> 
+                <img class="g-converter--arrow" src="../../../assets/img/arrow.jpeg" alt="">
 
-            <button type="submit">Convert</button>
+                <div class="g-select">
+                    <label class="g-select--label" for="to">To</label>
+                    <select class="g-select--select" id="to" formControlName="to">
+                        <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                    </select> 
+                </div>
+            </div>
 
-            <span>XX.XX {{ displayToCurrencyLabel() }}</span>
-            <button (click)="onClickMoreDetails()">More details</button>
+            <button class="btn-convert" type="submit">Convert</button>
+
+            <div class="g-converter--more">
+                <span class="g-converter--more__type">XX.XX {{ displayToCurrencyLabel() }}</span>
+                <button class="btn-convert" (click)="onClickMoreDetails()">More details</button>
+            </div>
         </div>    
     </form>
 </div>

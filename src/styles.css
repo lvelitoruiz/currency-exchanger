@@ -1,1 +1,179 @@
 /* You can add global styles to this file, and also import other style files */
+
+.g-container {
+  margin: 0 auto;
+  width: 700px;
+  background: #2a2a2a;
+  padding: 14px;
+}
+
+.g-header {
+  border: 1px solid white;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.g-header--logo {
+  width: 60px;
+}
+
+.g-header--btn {
+  background: transparent;
+  border: 1px solid white;
+  padding: 2px 16px;
+  margin-left: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.g-title {
+  font-size: 20px;
+  color: white;
+}
+
+.g-converter {
+  border: 1px solid white;
+  padding: 8px;
+  color: white;
+}
+
+.g-converter--form {
+  display: flex;
+  gap: 10px;
+}
+
+.g-converter--amount {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  min-height: 100%;
+  justify-content: space-between;
+  padding-bottom: 15px;
+}
+
+.g-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.g-input--label {
+  font-size: 12px;
+  margin-bottom: 4px;
+  margin-left: 4px;
+}
+
+.g-input--input {
+  border: 1px solid white;
+  background: transparent;
+  text-align: center;
+  color: white;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.g-converter--detail {
+  border: 1px solid white;
+  text-align: center;
+  font-size: 13px;
+  padding: 6px;
+  border-radius: 2px;
+}
+
+.g-converter--convert {
+  width: 60%;
+}
+
+.g-converter--convert__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.g-select {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.g-select--label {
+  font-size: 12px;
+  margin-bottom: 4px;
+  margin-left: 4px;
+}
+
+.g-select--select {
+  color: white;
+  text-align: end;
+  background-color: #85949e;
+  font-size: 13px;
+  padding: 6px;
+  border-radius: 2px;
+  border: none;
+}
+
+.g-converter--arrow {
+  width: 60px;
+  margin: 10px 20px 0 20px;
+}
+
+.btn-convert {
+  width: 100%;
+  background: #0055d5;
+  border: none;
+  padding: 6px;
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+}
+
+.g-converter--more {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.g-converter--more__type {
+  border: 1px solid white;
+  border-radius: 2px;
+  width: 100%;
+  font: 24px;
+  text-align: center;
+  padding: 20px 0;
+  margin-right: 10px;
+}
+
+.g-card {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.g-card--item {
+  border-radius: 2px;
+  border: 1px solid white;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.g-container--detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.g-title--btn {
+  background: #0055d5;
+  border: none;
+  padding: 6px 20px;
+  border-radius: 2px;
+  color: white;
+  
+}
