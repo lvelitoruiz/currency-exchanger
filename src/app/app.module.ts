@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -6,6 +7,7 @@ import { AppComponent } from './app.component';
 import { DetailModule } from './components/detail/detail.module';
 
 import { HomeModule } from './components/home/home.module';
+import { FixerService } from './services/fixer.service';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,14 @@ import { HomeModule } from './components/home/home.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     
     HomeModule,
     DetailModule
   ],
-  providers: [],
+  providers: [
+    FixerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

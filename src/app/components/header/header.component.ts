@@ -17,7 +17,7 @@ export class HeaderComponent {
   ) {}
 
   public onClick(from: string, to: string): void {
-    this.router.navigate(['detail', from, to]); (1)
+    this.router.navigate(['detail', from, to]);
   }
 
 }

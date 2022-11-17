@@ -1,19 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'detail',
   templateUrl: './detail.component.html'
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit {
+
+  @Input() from: string = '';
+  @Input() to: string = '';
 
   constructor(
     private route: ActivatedRoute) {
+  }
 
-      this.route.params
-        .subscribe((params) => { 
-          console.log ('[DEBUG]', params);
-        });
+  public ngOnInit(): void {
+    this.route.params
+      .subscribe((params) => {
+        // update with query params
+        this.to = params.to;
+        this.from = params.from;
+      });
   }
 
 }
