@@ -2,6 +2,8 @@ export interface Query {
     from?: string;
     to?: string;
     amount?: number;
+    symbols?: string;
+    base?: string;
 }
 
 export interface ConvertResponse {
@@ -18,5 +20,12 @@ export interface SymbolResponse {
     success?: boolean;
     symbols?: {
         [key: string]: string;
+    };
+}
+
+export interface LatestResponse {
+    success?: boolean;
+    rates?: {
+        [key: string]: number;
     };
 }

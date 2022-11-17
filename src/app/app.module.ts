@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { DetailModule } from './components/detail/detail.module';
 
 import { HomeModule } from './components/home/home.module';
+import { FixerInterceptorProvider } from './interceptor/fixer.interceptor';
 import { FixerService } from './services/fixer.service';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FixerService } from './services/fixer.service';
     DetailModule
   ],
   providers: [
-    FixerService
+    FixerService,
+    { provide: HTTP_INTERCEPTORS, useClass: FixerInterceptorProvider, multi: true }
   ],
   bootstrap: [AppComponent]
 })

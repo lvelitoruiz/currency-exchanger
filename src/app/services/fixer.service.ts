@@ -1,18 +1,18 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
-import { Query, ConvertResponse, SymbolResponse } from "../types/fixer";
+import { Query, ConvertResponse, SymbolResponse, LatestResponse } from "../types/fixer";
 
 @Injectable()
 export class FixerService {
 
-    private path = 'https://data.fixer.io/api/';
+    private path = 'https://api.apilayer.com/fixer';
 
     constructor(private http: HttpClient) { }
 
     public convert(query: Query): Observable<ConvertResponse> {
         const url = this.path + `/convert${this.createQueryParams(query)}`; 
-        return this.http.get(url);
+        return this.http.get<ConvertResponse>(url);
     }
 
     public symbols(): Observable<SymbolResponse> {
@@ -20,8 +20,13 @@ export class FixerService {
         return this.http.get(url);
     }
 
+    public latest(query: Query): Observable<LatestResponse> {
+        const url = this.path + `/latest${this.createQueryParams()}`;
+        return this.http.get(url);
+    }
+
     private createQueryParams(query?: Query): string {
-        let params = this.getAPIKey();
+        let params: string[] = [];
 
         if (query?.from)
             params.push('from=' + query.from);
@@ -31,6 +36,12 @@ export class FixerService {
         
         if (query?.amount)
             params.push('amount=' + query.amount);
+    
+        if (query?.symbols)
+            params.push('symbols=' + query.symbols);
+
+        if (query?.base)
+            params.push('base=' + query.base);
 
         let queryParams = '';
         if (params.length > 0) {
@@ -39,10 +50,4 @@ export class FixerService {
 
         return queryParams;
     }
-
-    private getAPIKey(): string[] {
-        let params: string[] = [];
-        params.push('access_key=API_KEY');
-        return params;
-    } 
 }

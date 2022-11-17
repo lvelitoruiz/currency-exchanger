@@ -15,7 +15,7 @@
                 <div class="g-select">
                     <label class="g-select--label" for="from">From</label>
                     <select class="g-select--select" id="from" formControlName="from" (change)="onChange()">
-                        <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                        <option *ngFor="let currency of currencies" [value]="currency?.key">{{ currency?.key }}</option>
                     </select> 
                 </div>
 
@@ -24,7 +24,7 @@
                 <div class="g-select">
                     <label class="g-select--label" for="to">To</label>
                     <select class="g-select--select" id="to" formControlName="to" (change)="onChange()">
-                        <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                        <option *ngFor="let currency of currencies" [value]="currency?.key">{{ currency?.key }}</option>
                     </select> 
                 </div>
             </div>

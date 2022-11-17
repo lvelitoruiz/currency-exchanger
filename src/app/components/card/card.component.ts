@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Currencies } from 'src/app/common/constants';
 
 @Component({
   selector: 'card',
@@ -7,7 +6,8 @@ import { Currencies } from 'src/app/common/constants';
 })
 export class CardComponent {
 
-  @Input() currency: string = Currencies.GBP;
+  @Input() currencyName: string = '';
+  @Input() currencyRate: number = 0.0;
 
   constructor() {}
 

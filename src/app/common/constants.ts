@@ -6,8 +6,10 @@ export const Currencies = {
 }
 
 export const AllowedCurrencies = [
-    Currencies.GBP,
-    Currencies.USD,
-    Currencies.PEN,
-    Currencies.EUR
+    { "USD": "United States Dollar" },
+    { "GBP": "British Pound Sterling" },
+    { "PEN": "Peruvian Nuevo Sol" },
+    { "EUR": "Euro" }
 ];
+
+export const SymbolsKey = 'SymbolsKey';

@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AllowedCurrencies, Currencies } from 'src/app/common/constants';
+import { AllowedCurrencies, Currencies, SymbolsKey } from 'src/app/common/constants';
 import { FixerService } from 'src/app/services/fixer.service';
 import { Query } from 'src/app/types/fixer';
 import { CustomValidator } from 'src/app/validator/custom.validator';
@@ -20,7 +20,7 @@ export class ConverterComponent implements OnChanges {
 
   public converterForm: FormGroup;
 
-  public currencies = AllowedCurrencies;
+  public currencies: any[] = [];
   public unitRate: number = 0.0;
   public amountRate: number = 0.0;
 
@@ -30,6 +30,11 @@ export class ConverterComponent implements OnChanges {
     private fixer: FixerService
   ) {
     this.converterForm = this.formBuilder.group({});
+
+    const symbols = localStorage.getItem(SymbolsKey);
+    if (symbols) {
+      this.transformCurrencies(JSON.parse(symbols));
+    }
   }
 
   public ngOnInit(): void {
@@ -78,8 +83,8 @@ export class ConverterComponent implements OnChanges {
   private calculateUnitRate(): void {
     this.fixer.convert(this.createUnitQuery()).subscribe((response) => {
       console.log ('[DEBUG] calculateUnitRate', response);
-      if (response?.success) {
-        this.unitRate = 1.0;
+      if (response?.success && response?.result) {
+        this.unitRate = response?.result;
       }
     });
   }
@@ -87,8 +92,8 @@ export class ConverterComponent implements OnChanges {
   public calculateRate(): void {
     this.fixer.convert(this.createConvertQuery()).subscribe((response) => {
       console.log ('[DEBUG] calculateRate', response);
-      if (response?.success) {
-        this.amountRate = 1.0;
+      if (response?.success && response?.result) {
+        this.amountRate = response?.result;
       }
     });
   }
@@ -114,6 +119,17 @@ export class ConverterComponent implements OnChanges {
       // show errors
       console.log ('[DEBUG]', this.converterForm.errors);
     }  
+  }
+
+  public transformCurrencies(symbols: any): void {
+    for (let key of Object.keys(symbols)) {
+      this.currencies.push(
+        {
+          key: key,
+          name: symbols[key]
+        }
+      );
+    }
   }
 
 }

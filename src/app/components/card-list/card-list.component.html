@@ -1,5 +1,8 @@
 <div class="g-card">
-    <div class="g-card--item" *ngFor="let currency of currencies">
-        <card [currency]="currency"></card>
+    <div class="g-card--item" *ngFor="let rate of rates">
+        <card 
+            [currencyName]="rate?.currencyName"
+            [currencyRate]="rate?.currencyRate">
+        </card>
     </div>
 </div>
