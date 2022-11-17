@@ -1,9 +1,10 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AllowedCurrencies, Currencies } from 'src/app/common/constants';
 import { FixerService } from 'src/app/services/fixer.service';
-import { ConvertQuery } from 'src/app/types/fixer';
+import { Query } from 'src/app/types/fixer';
+import { CustomValidator } from 'src/app/validator/custom.validator';
 
 @Component({
   selector: 'converter',
@@ -20,6 +21,8 @@ export class ConverterComponent implements OnChanges {
   public converterForm: FormGroup;
 
   public currencies = AllowedCurrencies;
+  public unitRate: number = 0.0;
+  public amountRate: number = 0.0;
 
   constructor(
     private router: Router,
@@ -33,11 +36,10 @@ export class ConverterComponent implements OnChanges {
     this.converterForm = this.formBuilder.group({
       from: [{ value: this.from, disabled: this.disabledFrom }],  
       to: this.to,  
-      amount: this.amount  
+      amount: [this.amount, CustomValidator.numeric]
     });
 
-    // first call
-    this.done();
+    this.calculateUnitRate();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -49,15 +51,6 @@ export class ConverterComponent implements OnChanges {
     }
   }
 
-  public done(): void {
-    this.fixer.convert(this.createQuery()).subscribe((response) => {
-      console.log ('[DEBUG] convert', response);
-      if (response?.success) {
-
-      }
-    });
-  }
-
   public displayFromCurrencyLabel(): string {
     return this.converterForm?.getRawValue()?.from;
   }
@@ -66,12 +59,61 @@ export class ConverterComponent implements OnChanges {
     return this.converterForm?.getRawValue()?.to;
   }
 
-  private createQuery(): ConvertQuery {
-    return this.converterForm?.getRawValue() as ConvertQuery;
+  private createConvertQuery(): Query {
+    return this.converterForm?.getRawValue() as Query;
+  }
+
+  private createUnitQuery(): Query {
+    return {
+      from: this.converterForm?.getRawValue()?.from,
+      to: this.converterForm?.getRawValue()?.to,
+      amount: 1.0
+    } as Query;
   }
 
   public onClickMoreDetails(): void {
     this.router.navigate(['detail', this.converterForm?.getRawValue()?.from, this.converterForm?.getRawValue()?.to]);
+  }
+
+  private calculateUnitRate(): void {
+    this.fixer.convert(this.createUnitQuery()).subscribe((response) => {
+      console.log ('[DEBUG] calculateUnitRate', response);
+      if (response?.success) {
+        this.unitRate = 1.0;
+      }
+    });
+  }
+
+  public calculateRate(): void {
+    this.fixer.convert(this.createConvertQuery()).subscribe((response) => {
+      console.log ('[DEBUG] calculateRate', response);
+      if (response?.success) {
+        this.amountRate = 1.0;
+      }
+    });
+  }
+
+  public done(): void {
+    if (this.converterForm.valid) {
+      this.calculateRate();
+    }
+  }
+
+  public onChange(): void {
+    // calculate unit rate
+    this.calculateUnitRate();
+    // calculate amount rate
+    this.calculateRate();
+  }
+
+  public onChangeAmount(): void {
+    if (this.converterForm.valid) {
+      // calculate amount rate
+      this.calculateRate();  
+    } else {
+      // show errors
+      console.log ('[DEBUG]', this.converterForm.errors);
+    }  
   }
 
 }

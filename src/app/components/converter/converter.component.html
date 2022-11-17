@@ -3,17 +3,18 @@
         <div class="g-converter--amount">
             <div class="g-input">
                 <label class="g-input--label" for="amount">Amount</label>
-                <input class="g-input--input" formControlName="amount" type="text" />
+                <input class="g-input--input" formControlName="amount" type="text" (blur)="onChangeAmount()" />
+                <span *ngIf="!converterForm?.valid">Invalid amount</span>
             </div>
 
-            <span class="g-converter--detail">1 {{ displayFromCurrencyLabel() }} = XX.XX {{ displayToCurrencyLabel() }}</span>
+            <span class="g-converter--detail">1 {{ displayFromCurrencyLabel() }} = {{ unitRate }} {{ displayToCurrencyLabel() }}</span>
         </div>
 
         <div class="g-converter--convert">
             <div class="g-converter--convert__header">
                 <div class="g-select">
                     <label class="g-select--label" for="from">From</label>
-                    <select class="g-select--select" id="from" formControlName="from">
+                    <select class="g-select--select" id="from" formControlName="from" (change)="onChange()">
                         <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
                     </select> 
                 </div>
@@ -22,17 +23,17 @@
 
                 <div class="g-select">
                     <label class="g-select--label" for="to">To</label>
-                    <select class="g-select--select" id="to" formControlName="to">
+                    <select class="g-select--select" id="to" formControlName="to" (change)="onChange()">
                         <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
                     </select> 
                 </div>
             </div>
 
-            <button class="btn-convert" type="submit">Convert</button>
+            <button class="btn-convert" type="submit" [disabled]="!converterForm?.valid">Convert</button>
 
             <div class="g-converter--more">
-                <span class="g-converter--more__type">XX.XX {{ displayToCurrencyLabel() }}</span>
-                <button class="btn-convert" (click)="onClickMoreDetails()">More details</button>
+                <span class="g-converter--more__type">{{ amountRate }} {{ displayToCurrencyLabel() }}</span>
+                <button *ngIf="!disabledFrom" class="btn-convert" (click)="onClickMoreDetails()">More details</button>
             </div>
         </div>    
     </form>

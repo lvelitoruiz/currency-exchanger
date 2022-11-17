@@ -1,4 +1,4 @@
-export interface ConvertQuery {
+export interface Query {
     from?: string;
     to?: string;
     amount?: number;
@@ -12,4 +12,11 @@ export interface ConvertResponse {
         amount?: number;
     };
     result?: number;
+}
+
+export interface SymbolResponse {
+    success?: boolean;
+    symbols?: {
+        [key: string]: string;
+    };
 }

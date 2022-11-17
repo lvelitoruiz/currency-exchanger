@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
-import { ConvertQuery, ConvertResponse } from "../types/fixer";
+import { Query, ConvertResponse, SymbolResponse } from "../types/fixer";
 
 @Injectable()
 export class FixerService {
@@ -10,12 +10,17 @@ export class FixerService {
 
     constructor(private http: HttpClient) { }
 
-    public convert(query: ConvertQuery): Observable<ConvertResponse> {
-        const url = this.path + '/convert' + this.createQueryParams(query)
+    public convert(query: Query): Observable<ConvertResponse> {
+        const url = this.path + `/convert${this.createQueryParams(query)}`; 
         return this.http.get(url);
     }
 
-    private createQueryParams(query: ConvertQuery): string {
+    public symbols(): Observable<SymbolResponse> {
+        const url = this.path + `/symbols${this.createQueryParams()}`;
+        return this.http.get(url);
+    }
+
+    private createQueryParams(query?: Query): string {
         let params = this.getAPIKey();
 
         if (query?.from)
