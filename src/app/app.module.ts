@@ -23,7 +23,6 @@ import { FixerService } from './services/fixer.service';
     DetailModule
   ],
   providers: [
-    FixerService,
     { provide: HTTP_INTERCEPTORS, useClass: FixerInterceptorProvider, multi: true }
   ],
   bootstrap: [AppComponent]

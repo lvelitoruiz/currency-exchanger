@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AllowedCurrencies, Currencies, SymbolsKey } from 'src/app/common/constants';
+import { Currencies, SymbolsKey } from 'src/app/common/constants';
 import { FixerService } from 'src/app/services/fixer.service';
 import { Query } from 'src/app/types/fixer';
 import { CustomValidator } from 'src/app/validator/custom.validator';

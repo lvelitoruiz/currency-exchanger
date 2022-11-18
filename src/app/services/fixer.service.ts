@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { Query, ConvertResponse, SymbolResponse, LatestResponse } from "../types/fixer";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class FixerService {
 
     private path = 'https://api.apilayer.com/fixer';
