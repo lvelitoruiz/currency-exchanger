@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Currencies, SymbolsKey } from 'src/app/common/constants';
@@ -10,19 +10,19 @@ import { CustomValidator } from 'src/app/validator/custom.validator';
   selector: 'converter',
   templateUrl: './converter.component.html'
 })
-export class ConverterComponent implements OnChanges {
+export class ConverterComponent implements OnInit, OnChanges {
 
   @Input() from: string = Currencies.EUR;
   @Input() to: string = Currencies.USD;
-  @Input() amount: number = 100;
+  @Input() amount = 100;
 
-  @Input() disabledFrom: boolean = false;
+  @Input() disabledFrom = false;
 
   public converterForm: FormGroup;
 
   public currencies: any[] = [];
-  public unitRate: number = 0.0;
-  public amountRate: number = 0.0;
+  public unitRate = 0.0;
+  public amountRate = 0.0;
 
   constructor(
     private router: Router,
@@ -39,8 +39,8 @@ export class ConverterComponent implements OnChanges {
 
   public ngOnInit(): void {
     this.converterForm = this.formBuilder.group({
-      from: [{ value: this.from, disabled: this.disabledFrom }],  
-      to: this.to,  
+      from: [{ value: this.from, disabled: this.disabledFrom }],
+      to: this.to,
       amount: [this.amount, CustomValidator.numeric]
     });
 
@@ -114,18 +114,18 @@ export class ConverterComponent implements OnChanges {
   public onChangeAmount(): void {
     if (this.converterForm.valid) {
       // calculate amount rate
-      this.calculateRate();  
+      this.calculateRate();
     } else {
       // show errors
       console.log ('[DEBUG]', this.converterForm.errors);
-    }  
+    }
   }
 
   public transformCurrencies(symbols: any): void {
-    for (let key of Object.keys(symbols)) {
+    for (const key of Object.keys(symbols)) {
       this.currencies.push(
         {
-          key: key,
+          key,
           name: symbols[key]
         }
       );

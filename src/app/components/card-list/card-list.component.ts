@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SymbolsKey } from 'src/app/common/constants';
+import { Currencies, SymbolsKey } from 'src/app/common/constants';
 import { FixerService } from 'src/app/services/fixer.service';
 import { Query } from 'src/app/types/fixer';
 
@@ -10,7 +10,7 @@ import { Query } from 'src/app/types/fixer';
 export class CardListComponent implements OnInit {
 
   public rates: any[] = [];
-  private base = 'EUR';
+  private base = Currencies.EUR;
 
   constructor(
     private fixer: FixerService
@@ -18,7 +18,7 @@ export class CardListComponent implements OnInit {
 
   public ngOnInit(): void {
     // get symbols from api
-    this.fixer.latest(this.createQuery()).subscribe((response)=> {
+    this.fixer.latest(this.createQuery()).subscribe((response) => {
       if (response?.success && response?.rates) {
         this.transformRates(response?.rates);
       }
@@ -42,7 +42,7 @@ export class CardListComponent implements OnInit {
   }
 
   private transformRates(rates: any): void {
-    for (let key of Object.keys(rates)) {
+    for (const key of Object.keys(rates)) {
       this.rates.push(
         {
           currencyName: key,

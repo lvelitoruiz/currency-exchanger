@@ -6,8 +6,8 @@ import { Component, Input } from '@angular/core';
 })
 export class CardComponent {
 
-  @Input() currencyName: string = '';
-  @Input() currencyRate: number = 0.0;
+  @Input() currencyName = '';
+  @Input() currencyRate = 0.0;
 
   constructor() {}
 

@@ -10,18 +10,18 @@ describe('ConverterComponent', () => {
 
   const mockFixerService = jasmine.createSpyObj('FixerService', ['convert', 'symbols', 'latest'] );
   mockFixerService.convert.and.returnValue(of({
-    "date": "2022-11-18",
-    "info": {
-      "rate": 0.868505,
-      "timestamp": 1668786663
+    date: '2022-11-18',
+    info: {
+      rate: 0.868505,
+      timestamp: 1668786663
     },
-    "query": {
-      "amount": 100,
-      "from": "EUR",
-      "to": "GBP"
+    query: {
+      amount: 100,
+      from: 'EUR',
+      to: 'GBP'
     },
-    "result": 86.8505,
-    "success": true
+    result: 86.8505,
+    success: true
   }));
 
   let component: ConverterComponent;

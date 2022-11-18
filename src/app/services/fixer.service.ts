@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from "rxjs";
-import { Query, ConvertResponse, SymbolResponse, LatestResponse } from "../types/fixer";
+import { Observable } from 'rxjs';
+import { Query, ConvertResponse, SymbolResponse, LatestResponse } from '../types/fixer';
 
 @Injectable({
     providedIn: 'root',
@@ -13,7 +13,7 @@ export class FixerService {
     constructor(private http: HttpClient) { }
 
     public convert(query: Query): Observable<ConvertResponse> {
-        const url = this.path + `/convert${this.createQueryParams(query)}`; 
+        const url = this.path + `/convert${this.createQueryParams(query)}`;
         return this.http.get<ConvertResponse>(url);
     }
 
@@ -28,22 +28,27 @@ export class FixerService {
     }
 
     private createQueryParams(query?: Query): string {
-        let params: string[] = [];
+        const params: string[] = [];
 
-        if (query?.from)
+        if (query?.from) {
             params.push('from=' + query.from);
-        
-        if (query?.to)
-            params.push('to=' + query.to);
-        
-        if (query?.amount)
-            params.push('amount=' + query.amount);
-    
-        if (query?.symbols)
-            params.push('symbols=' + query.symbols);
+        }
 
-        if (query?.base)
+        if (query?.to) {
+            params.push('to=' + query.to);
+        }
+
+        if (query?.amount) {
+            params.push('amount=' + query.amount);
+        }
+
+        if (query?.symbols) {
+            params.push('symbols=' + query.symbols);
+        }
+
+        if (query?.base) {
             params.push('base=' + query.base);
+        }
 
         let queryParams = '';
         if (params.length > 0) {

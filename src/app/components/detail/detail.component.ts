@@ -8,8 +8,8 @@ import { SymbolsKey } from 'src/app/common/constants';
 })
 export class DetailComponent implements OnInit {
 
-  @Input() from: string = '';
-  @Input() to: string = '';
+  @Input() from = '';
+  @Input() to = '';
 
   constructor(
     private route: ActivatedRoute) {

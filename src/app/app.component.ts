@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     // get symbols from api
-    this.fixer.symbols().subscribe((response)=> {
+    this.fixer.symbols().subscribe((response) => {
       this.storeSymbols((response?.success) ? JSON.stringify(response?.symbols) : AllowedCurrencies);
     });
   }
@@ -24,5 +24,5 @@ export class AppComponent implements OnInit {
   private storeSymbols(symbols: any): void {
     localStorage.setItem(SymbolsKey, symbols);
   }
-  
+
 }

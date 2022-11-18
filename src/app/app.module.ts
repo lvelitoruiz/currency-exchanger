@@ -18,7 +18,7 @@ import { FixerService } from './services/fixer.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    
+
     HomeModule,
     DetailModule
   ],
